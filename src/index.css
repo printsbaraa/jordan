@@ -1,0 +1,273 @@
+/* ─── Google Fonts — must precede @tailwind directives ─────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-desert-900 text-stone-100 font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1a1209;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #533c1a;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d97427;
+  }
+}
+
+/* ─── Parallax Hero ─────────────────────────────────────────── */
+@layer components {
+  .parallax-hero {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    min-height: 600px;
+    overflow: hidden;
+    background-color: #1a1209;
+  }
+
+  .parallax-layer {
+    position: absolute;
+    inset: -15% 0;
+    width: 100%;
+    will-change: transform;
+    transform-origin: center center;
+  }
+
+  .parallax-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .parallax-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(26, 18, 9, 0.15) 0%,
+      rgba(26, 18, 9, 0.05) 35%,
+      rgba(26, 18, 9, 0.45) 70%,
+      rgba(26, 18, 9, 0.88) 100%
+    );
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hero-content > * {
+    pointer-events: auto;
+  }
+
+  /* ── Jordanian Flag Stripe ── */
+  .flag-stripe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 15;
+  }
+
+  /* ── Navigation ── */
+  .nav-glass {
+    background: rgba(26, 18, 9, 0.72);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border-bottom: 1px solid rgba(217, 116, 39, 0.2);
+  }
+
+  /* ── Destination Card ── */
+  .destination-card {
+    @apply relative overflow-hidden rounded-xl bg-desert-800 border border-white/5;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s ease,
+                border-color 0.3s ease;
+  }
+
+  .destination-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    @apply border-sandstone-600/40;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(217, 116, 39, 0.15);
+  }
+
+  .destination-card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .destination-card:hover .card-img {
+    transform: scale(1.06);
+  }
+
+  .card-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .card-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-desert-900/90 via-desert-900/40 to-transparent;
+    opacity: 0.7;
+    transition: opacity 0.4s ease;
+  }
+
+  /* ── Section titles ── */
+  .section-title {
+    @apply font-cinematic text-5xl md:text-6xl font-light tracking-wide;
+    background: linear-gradient(135deg, #e9b276 0%, #d97427 40%, #f9e9d5 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Animated underline ── */
+  .underline-anim {
+    position: relative;
+    display: inline-block;
+  }
+
+  .underline-anim::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #d97427, #e9b276);
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .underline-anim:hover::after {
+    width: 100%;
+  }
+
+  /* ── CTA Button ── */
+  .btn-primary {
+    @apply relative inline-flex items-center gap-3 px-10 py-4 font-sans text-sm font-semibold tracking-widest uppercase;
+    background: linear-gradient(135deg, #d97427 0%, #ca5c1d 100%);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 20px rgba(217, 116, 39, 0.35);
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #e9b276 0%, #d97427 100%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(217, 116, 39, 0.5);
+  }
+
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+
+  .btn-primary span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium tracking-widest uppercase border;
+    border-color: rgba(217, 116, 39, 0.5);
+    color: #e9b276;
+    border-radius: 2px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(217, 116, 39, 0.12);
+    border-color: rgba(217, 116, 39, 0.8);
+    color: #f9e9d5;
+  }
+
+  /* ── Scroll indicator ── */
+  .scroll-indicator {
+    animation: bounce-slow 2.5s ease-in-out infinite;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50%       { transform: translateY(10px); opacity: 1; }
+  }
+}
+
+/* ─── Reduced-motion overrides ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-layer {
+    inset: 0 !important;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Mobile menu ───────────────────────────────────────────── */
+.mobile-menu-enter {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu-exit {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}

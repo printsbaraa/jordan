@@ -1,0 +1,235 @@
+/* ─── TiltedGridHero Scoped Styles ──────────────────────────────────
+   Isolated exclusively to .tilted-grid-hero-container
+   Does NOT affect any Parallax or global website styles
+   ───────────────────────────────────────────────────────────────── */
+
+.tilted-grid-hero-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 20%, #26190e 0%, #160e06 60%, #0d0804 100%);
+  perspective: 1200px;
+  isolation: isolate;
+}
+
+/* Atmospheric lighting and grain overlay */
+.tgh-ambient-glow {
+  position: absolute;
+  top: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(217, 116, 39, 0.15) 0%, rgba(202, 92, 29, 0.05) 50%, transparent 75%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tgh-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #1a1209 0%,
+    transparent 15%,
+    transparent 85%,
+    #1a1209 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* 3D Tilted Viewport */
+.tgh-grid-viewport {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 768px) {
+  .tgh-grid-viewport {
+    height: 720px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .tgh-grid-viewport {
+    height: 780px;
+  }
+}
+
+.tgh-grid-stage {
+  display: flex;
+  gap: 1.5rem;
+  transform: rotateX(16deg) rotateZ(-9deg) rotateY(6deg) translateY(-2%);
+  transform-origin: center center;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+/* Columns movement */
+.tgh-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.tgh-col-drift-up {
+  animation: tghDriftUp 38s linear infinite;
+}
+
+.tgh-col-drift-down {
+  animation: tghDriftDown 42s linear infinite;
+}
+
+.tgh-col-drift-up-alt {
+  animation: tghDriftUpAlt 36s linear infinite;
+}
+
+@keyframes tghDriftUp {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes tghDriftDown {
+  0% {
+    transform: translateY(-8%);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-8%);
+  }
+}
+
+@keyframes tghDriftUpAlt {
+  0% {
+    transform: translateY(-4%);
+  }
+  50% {
+    transform: translateY(-12%);
+  }
+  100% {
+    transform: translateY(-4%);
+  }
+}
+
+/* Card Styling */
+.tgh-card {
+  position: relative;
+  width: 240px;
+  height: 330px;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: #21160c;
+  border: 1px solid rgba(223, 144, 69, 0.2);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 640px) {
+  .tgh-card {
+    width: 260px;
+    height: 360px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tgh-card {
+    width: 290px;
+    height: 390px;
+  }
+}
+
+.tgh-card:hover {
+  transform: translateZ(30px) scale(1.04);
+  border-color: rgba(217, 116, 39, 0.7);
+  box-shadow: 0 24px 48px -10px rgba(0, 0, 0, 0.85), 0 0 25px rgba(217, 116, 39, 0.25);
+  z-index: 10;
+}
+
+.tgh-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.tgh-card:hover .tgh-card-img {
+  transform: scale(1.08);
+}
+
+.tgh-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(14, 9, 4, 0.95) 0%,
+    rgba(26, 18, 9, 0.5) 45%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.tgh-card-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(14, 9, 4, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(223, 144, 69, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-family: inherit;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f2d0a8;
+  z-index: 2;
+}
+
+.tgh-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem;
+  z-index: 2;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .tgh-grid-stage {
+    transform: none !important;
+  }
+  .tgh-col-drift-up,
+  .tgh-col-drift-down,
+  .tgh-col-drift-up-alt {
+    animation: none !important;
+  }
+  .tgh-card {
+    transition: none !important;
+  }
+  .tgh-card:hover {
+    transform: none !important;
+  }
+}
