@@ -2,10 +2,13 @@
   "name": "welcome-to-jordan",
   "private": true,
   "version": "1.0.0",
+  "homepage": "https://printsbaraa.github.io/jordan",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -25,6 +28,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "autoprefixer": "^10.6.2",
+    "gh-pages": "^6.3.0",
     "oxlint": "^1.89.0",
     "postcss": "^8.5.32",
     "tailwindcss": "^3.4.19",
